@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>基本配置 | 学习vuepress</title>
+    <meta name="description" content="">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.d7d6c04a.css" as="style"><link rel="preload" href="/assets/js/app.a828308d.js" as="script"><link rel="preload" href="/assets/js/2.f2ed39ff.js" as="script"><link rel="preload" href="/assets/js/6.b325f6c2.js" as="script"><link rel="prefetch" href="/assets/js/10.dffb93f3.js"><link rel="prefetch" href="/assets/js/3.08cf39c9.js"><link rel="prefetch" href="/assets/js/4.7bf71852.js"><link rel="prefetch" href="/assets/js/5.27b775a2.js"><link rel="prefetch" href="/assets/js/7.566fad2c.js"><link rel="prefetch" href="/assets/js/8.3c51da14.js"><link rel="prefetch" href="/assets/js/9.f26bb3eb.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.d7d6c04a.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">学习vuepress</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <!----></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><!---->  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>介绍</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/" class="sidebar-link">说明</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Vuepress安装</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/install/start.html" class="active sidebar-link">基本配置</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前端</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/myproject/html.html" class="sidebar-link">html 规范</a></li><li><a href="/myproject/css.html" class="sidebar-link">css规范</a></li><li><a href="/myproject/javascript.html" class="sidebar-link">javascript规范</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="基本配置"><a href="#基本配置" aria-hidden="true" class="header-anchor">#</a> 基本配置</h1> <h2 id="项目结构"><a href="#项目结构" aria-hidden="true" class="header-anchor">#</a> 项目结构</h2> <div class="language- extra-class"><pre class="language-text"><code>.
+├─ docs
+│  ├─ README.md
+│  └─ .vuepress
+│     └─ config.js
+└─ package.json
+</code></pre></div><h2 id="初始化依赖配置表"><a href="#初始化依赖配置表" aria-hidden="true" class="header-anchor">#</a> 初始化依赖配置表</h2> <ul><li><code>yarn init -y</code></li> <li>初始化一个package.json</li></ul> <img src="/yarninit.png">
+## 安装vuepress
+* `yarn add -D vuepress@next`
+<img src="/vuepress.png"> <ul><li>package.json里面添加如下键值对</li></ul> <div class="language- extra-class"><pre class="language-text"><code>&quot;scripts&quot;: {
+    &quot;docs:dev&quot;: &quot;vuepress dev docs&quot;,
+    &quot;docs:build&quot;: &quot;vuepress build docs&quot;
+  }
+</code></pre></div><img src="/all.png"> <ul><li>这个键值对告诉我们：运行yarn run docs:dev，项目就可以跑起来了</li></ul> <h2 id="docs根目录下添加md文件"><a href="#docs根目录下添加md文件" aria-hidden="true" class="header-anchor">#</a> docs根目录下添加md文件</h2> <ul><li>这是进入项目在没有手动选择任何路径时，也就是处于/根路径时的默认入口展示页面。</li> <li>在docs的根目录再建模块文件夹，模块文件夹里面为具体的md文件，想取什么名字都行。</li></ul> <h2 id="配置config-js"><a href="#配置config-js" aria-hidden="true" class="header-anchor">#</a> 配置config.js</h2> <div class="language- extra-class"><pre class="language-text"><code>module.exports = {
+    title: 'Vuepress', //网站标题
+    base: '/', //打包后的base路径
+    themeConfig: { //主题配置
+        head: [
+            ['link', { rel: 'icon', href: '/favicon.ico' }] //引入favicon
+        ],
+        search: false, //不要搜索框
+        sidebarDepth: 0,
+        sidebar: [ //侧边栏
+            {
+              title: '介绍',
+              collapsable: false,
+              children: [
+                '/'
+              ]
+            },
+            {
+                title: '基本配置以及安装',
+                collapsable: false,
+                children: [
+                  '/install/start.md'
+                ]
+              },
+            {
+              title: '前端',
+              collapsable: false,
+              children: [ 
+                '/myproject/html.md',
+                '/myproject/css.md',
+                '/myproject/javascript.md'
+              ]
+            }
+          ]
+    }
+}
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/" class="prev router-link-active">
+          说明
+        </a></span> <span class="next"><a href="/myproject/html.html">
+          html 规范
+        </a>
+        →
+      </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.a828308d.js" defer></script><script src="/assets/js/2.f2ed39ff.js" defer></script><script src="/assets/js/6.b325f6c2.js" defer></script>
+  </body>
+</html>
