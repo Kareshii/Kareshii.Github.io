@@ -1,24 +1,22 @@
-{
-    "list": [
-        {
-            "item": "测试1",
-            "isDone": true
-        },
-        {
-            "item": "测试2",
-            "isDone": true
-        },
-        {
-            "item": "测试3",
-            "isDone": true
-        },
-        {
-            "item": "测试4",
-            "isDone": true
-        },
-        {
-            "item": "测试5",
-            "isDone": true
-        }
-    ]
-}
+[
+    {
+        "item": "一起看海",
+        "isDone": true
+    },
+    {
+        "item": "测试2",
+        "isDone": false
+    },
+    {
+        "item": "测试3",
+        "isDone": false
+    },
+    {
+        "item": "测试4",
+        "isDone": false
+    },
+    {
+        "item": "测试5",
+        "isDone": false
+    }
+]
