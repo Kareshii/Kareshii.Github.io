@@ -1,25 +1,28 @@
 <html>
 
 <head>
-    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
-    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap-grid.min.css" rel="stylesheet">
+    <script src="./jquery.slim.min.js"></script>
+    <script src="./vue.min.js"></script>
+    <link href="./bootstrap-grid.css" rel="stylesheet">
 </head>
 
 <body>
     <div id="app">
         <div class="container grid-sm s-content header">
-            <div class="column col-12">
-                <h2>
-                    Hi.
-                </h2>
+            <div class="column col-12" style="display: flex;">
+                <img src="love.png" alt="" style="width: 70px;height: 70px;">
+                <p class="shining" style="font-size: 14px;padding: 0 20px;">
+                    Hi，你好像发现了这个网站。
+                    这里记录了 <a style="color: #ea00ffd2;">@黄凯荣</a>和 <a style="color: #ea00ffd2;">@王若玙</a> 恋爱时要一起做的100件事。
+                    相信我们还会留下更多美好的回忆，谢谢大家的祝福 ！
+                </p>
             </div>
         </div>
         <div class="container grid-sm s-content posts">
             <div class="column col-12">
                 <ol type="1">
                     <li v-for="(i,index) in doList" :key="i">
-                        <span>{{index+'.'}}</span>
+                        <span>{{index+'.'}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <div :class="{ block: i.isDone }">{{i.item}}</div>
                     </li>
                 </ol>
@@ -33,29 +36,130 @@
         var app = new Vue({
             el: '#app',
             data: {
-                doList: []
+                doList: [
+                    {
+                        "item": "一起去旅游(认真玩)",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起拍Vlog",
+                        "isDone": false
+                    },
+                    {
+                        "item": "养一只小狗狗 (并取名叫塔子哥 （养了一只柯基 名字叫肉肉",
+                        "isDone": true
+                    },
+                    {
+                        "item": "一起游乐园玩!!!",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起看雪",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起去迪士尼乐园玩！",
+                        "isDone": false
+                    },
+                    {
+                        "item": "互相给对方织毛衣！",
+                        "isDone": false
+                    },
+                    {
+                        "item": "春游！",
+                        "isDone": false
+                    },
+                    {
+                        "item": "手牵手一起去逛街",
+                        "isDone": false
+                    },
+                    {
+                        "item": "去酒店里住上",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起穿情侣鞋",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起做一次陶艺",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起熬夜通宵跨年",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起看烟花",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起坐摩天轮",
+                        "isDone": false
+                    },
+                    {
+                        "item": "来一次浪漫的烛光晚餐！",
+                        "isDone": false
+                    },
+                    {
+                        "item": "互相送对方惊喜",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起做蛋糕",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起喝醉",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起爬山",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起泡温泉",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起去玩鬼屋",
+                        "isDone": false
+                    },
+                    {
+                        "item": "去看城市夜景",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起去玩蹦极",
+                        "isDone": false
+                    },
+                    {
+                        "item": "一起过情人节",
+                        "isDone": false       
+                    }
+                ]
             },
             created() {
-                this.GetList();
+                // this.GetList();
             },
             methods: {
-                GetList() {
-                    let List = [];
-                    $.ajax({
-                        url: `doList.json`,
-                        processData: false,
-                        type: 'get',
-                        dataType: "json",
-                        success: function (data) {
-                            List = data;
-                        },
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        }
-                    });
-                    setTimeout(() => {
-                        this.doList = List;
-                    }, 100);
-                }
+                // GetList() {
+                //     let List = [];
+                //     $.ajax({
+                //         url: `doList.json`,
+                //         processData: false,
+                //         type: 'get',
+                //         dataType: "json",
+                //         success: function (data) {
+                //             List = data;
+                //         },
+                //         error: function (XMLHttpRequest, textStatus, errorThrown) {
+                //         }
+                //     });
+                //     setTimeout(() => {
+                //         this.doList = List;
+                //     }, 100);
+                // }
             }
         })
     </script>
@@ -80,13 +184,43 @@
             list-style-position: inside;
         }
 
+        .header {
+            padding: 50px 0 0;
+            max-width: 680px;
+        }
+
         .block {
             width: 100%;
-            text-decoration:line-through;
+            font-style: italic;
+            text-decoration: line-through;
         }
 
         li:hover {
             background-color: #f0f8ffd2;
+        }
+
+        .shining {
+            font-size: 2em;
+            font-family: Lato, sans-serif;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(255, 255, 255, 1) 50%, rgba(0, 0, 0, 1) 100%);
+            background-size: 80%;
+            background-repeat: no-repeat;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: shining 3s linear infinite;
+        }
+
+        @keyframes shining {
+            from {
+                background-position: -500%;
+            }
+
+            to {
+                background-position: 500%;
+            }
         }
     </style>
 </body>
