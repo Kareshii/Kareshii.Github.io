@@ -1,0 +1,94 @@
+<html>
+
+<head>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.4.1/css/bootstrap-grid.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app">
+        <div class="container grid-sm s-content header">
+            <div class="column col-12">
+                <h2>
+                    Hi.
+                </h2>
+            </div>
+        </div>
+        <div class="container grid-sm s-content posts">
+            <div class="column col-12">
+                <ol type="1">
+                    <li v-for="(i,index) in doList" :key="i">
+                        <span>{{index+'.'}}</span>
+                        <div :class="{ block: i.isDone }">{{i.item}}</div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="container grid-sm s-content footer">
+            <div class="column col-12"></div>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                doList: []
+            },
+            created() {
+                this.GetList();
+            },
+            methods: {
+                GetList() {
+                    let List = [];
+                    $.ajax({
+                        url: `doList.json`,
+                        processData: false,
+                        type: 'get',
+                        dataType: "json",
+                        success: function (data) {
+                            List = data;
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    });
+                    setTimeout(() => {
+                        this.doList = List;
+                    }, 100);
+                }
+            }
+        })
+    </script>
+    <style>
+        ol {
+            margin-left: -30px;
+            padding-left: 30px;
+            /* width: 1240px;
+            margin: 0 auto; */
+        }
+
+        li {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        ol li {
+
+            list-style-type: decimal;
+
+            list-style-position: inside;
+        }
+
+        .block {
+            width: 100%;
+            text-decoration:line-through;
+        }
+
+        li:hover {
+            background-color: #f0f8ffd2;
+        }
+    </style>
+</body>
+
+</html>
