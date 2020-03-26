@@ -22,7 +22,7 @@
                 </p>
             </div>
 
-            <div style="position: absolute;top:0;right: 0;">
+            <div  class="column col-12" style="position: absolute;top:0;right: 0;">
                 <div class="weather">
                     <div class="sunny" v-if="weatherinfo.wea=='晴'">
                         <span class="sun"></span>
@@ -315,11 +315,14 @@
             created() {
                 this.colorClock();
                 this.timeRun();
-                this.Getip();
+                // this.Getip();
                 // this.GetList();
             },
             destroyed() {
                 clearInterval(this.t)
+            },
+            mounted(){
+                this.Getip();
             },
             methods: {
                 Getip() {
