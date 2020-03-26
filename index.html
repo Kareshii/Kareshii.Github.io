@@ -1,9 +1,10 @@
 <html>
 
 <head>
-    <script src="./jquery.slim.min.js"></script>
-    <script src="./vue.min.js"></script>
     <link href="./bootstrap-grid.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
     <title>爱屋</title>
 </head>
 
@@ -18,6 +19,17 @@
                     相信我们还会留下更多美好的回忆，谢谢大家的祝福 ！
                 </p>
             </div>
+
+            <div style="position: absolute;top:0;right: 0;">
+                <div>
+                    {{weatherinfo.city}}{{weatherinfo.wea}}
+                </div>
+                <div class="weather">
+                    <div class="sunny">
+                        <span class="sun"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="container grid-sm s-content posts">
             <div class="column col-12">
@@ -30,13 +42,21 @@
             </div>
         </div>
         <div class="container grid-sm s-content footer">
-            <div class="column col-12"></div>
+            <div class="column col-12">
+                <div>
+                    <p style="color: #f1f1f1;">和鱼子哥已经在一起：{{timer}}</p>
+                </div>
+            </div>
         </div>
     </div>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
+                t: null,
+                timer: '',
+                scond: '',
+                weatherinfo: {},
                 doList: [
                     {
                         "item": "一起去旅游(认真玩)",
@@ -136,46 +156,174 @@
                     },
                     {
                         "item": "一起过情人节",
-                        "isDone": false       
+                        "isDone": false
                     },
                     {
                         "item": "一起拍一次写真",
-                        "isDone": false  
+                        "isDone": false
                     },
                     {
                         "item": "一起为了对方变得更好",
-                        "isDone": false  
+                        "isDone": false
                     },
                     {
                         "item": "一起去彼此的学校",
-                        "isDone": true  
+                        "isDone": true
                     },
                     {
                         "item": "一起过圣诞",
-                        "isDone": false  
+                        "isDone": false
                     },
                     {
                         "item": "一起吃烤地瓜",
-                        "isDone": false  
+                        "isDone": false
                     },
                     {
                         "item": "一起吃糖炒栗子",
-                        "isDone": false  
+                        "isDone": false
                     },
                     {
                         "item": "一起去菜市场买菜做饭",
-                        "isDone": true  
+                        "isDone": true
                     },
                     {
-                        "item": "一起过圣诞",
-                        "isDone": false  
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
+                    },
+                    {
+                        "item": "",
+                        "isDone": false
                     }
                 ]
             },
             created() {
+                this.colorClock();
+                this.timeRun();
+                // this.Getip();
                 // this.GetList();
             },
+            destroyed() {
+                clearInterval(this.t)
+            },
             methods: {
+                Getip() {
+                    let weather = {};
+                    let ip = returnCitySN["cip"];
+                    $.ajax({
+                        url: ` https://tianqiapi.com/api?version=v6&appid=69361264&appsecret=3OQl2eiY&ip=${ip}`,
+                        processData: false,
+                        type: 'get',
+                        success: function (data) {
+                            weather = data;
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        }
+                    });
+                    setTimeout(() => {
+                        this.weatherinfo = weather;
+                    }, 100);
+                },
+                colorClock() {
+                    let date = new Date()
+                    let together = new Date()
+                    together.setFullYear(2019, 0, 4) //时间年月日
+                    together.setHours(1) //小时
+                    together.setMinutes(31) //分钟
+                    together.setSeconds(47) //秒前一位
+                    together.setMilliseconds(2) //秒第二位
+                    // console.log(together);
+                    let ltime = Math.ceil((date.getTime() - together.getTime()) / 1000)
+                    let d = Math.floor(ltime / (24 * 60 * 60))
+                    //换算成小时取去掉天数的余数（也就是小时） 小数点向下舍入取整
+                    let h = Math.floor((ltime / (60 * 60)) % 24)
+                    //换算成分钟取去掉小时的余数（也就是分钟） 小数点向下舍入取整
+                    let m = Math.floor((ltime / 60) % 60)
+                    //换算成分钟取去掉分钟的余数（也就是秒） 小数点向下舍入取整
+                    let s = Math.floor(ltime % 60)
+                    this.timer = d + '天' + h + '时' + m + '分' + s + '秒';
+                    // this.scond = s + '秒';
+                },
+                timeRun() {
+                    this.t = setInterval(() => {
+                        this.colorClock();
+                    }, 1000)
+                },
                 // GetList() {
                 //     let List = [];
                 //     $.ajax({
@@ -197,6 +345,10 @@
         })
     </script>
     <style>
+        body {
+            background: #212125;
+        }
+
         ol {
             margin-left: -30px;
             padding-left: 30px;
@@ -208,6 +360,7 @@
             display: flex;
             padding: 10px;
             border-top: 1px solid #e5e5e5;
+            color: aliceblue;
         }
 
         ol li {
@@ -230,6 +383,7 @@
 
         li:hover {
             background-color: #f0f8ffd2;
+            color: #212125;
         }
 
         .shining {
@@ -243,7 +397,7 @@
             color: transparent;
             background-clip: text;
             -webkit-background-clip: text;
-            animation: shining 3s linear infinite;
+            animation: shining 5s linear infinite;
         }
 
         @keyframes shining {
@@ -253,6 +407,106 @@
 
             to {
                 background-position: 500%;
+            }
+        }
+
+
+
+
+        .weather {
+            width: 100%;
+            font-size: -webkit-calc(1em);
+            font-size: calc(1em);
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            -webkit-justify-content: space-around;
+            -ms-flex-pack: distribute;
+            justify-content: space-around;
+            -webkit-flex-flow: row wrap;
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            font-family: 'Work Sans', sans-serif;
+            /* background: #212125; */
+            color: #e6e8db;
+        }
+
+        .sunny {
+            -webkit-box-flex: 0;
+            -webkit-flex: none;
+            -ms-flex: none;
+            flex: none;
+            display: block;
+            position: relative;
+            font-size: -webkit-calc(11em);
+            font-size: calc(11em);
+            width: 1em;
+            height: 1em;
+            margin: .3em;
+            border-radius: 100%;
+            -webkit-box-shadow: 0 0 0 0.05em currentColor inset, 0 0 0.3em -0.03em #fd6f21;
+            box-shadow: 0 0 0 0.05em currentColor inset, 0 0 0.3em -0.03em #fd6f21;
+            background: -webkit-linear-gradient(top right, #fc5830 0%, #f98c24 65%);
+            background: linear-gradient(to top right, #fc5830 0%, #f98c24 65%);
+        }
+
+        .sun {
+            position: absolute;
+            top: 20%;
+            left: 80%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 40%;
+            height: 40%;
+            border-radius: 100%;
+            background: #ffeb3b;
+            -webkit-box-shadow: 0 0 0 0.02em currentColor inset, 0 0 0.3em -0.03em #fd6f21;
+            box-shadow: 0 0 0 0.02em currentColor inset, 0 0 0.3em -0.03em #fd6f21;
+            -webkit-transform-origin: .1em .1em;
+            -ms-transform-origin: .1em .1em;
+            transform-origin: .1em .1em;
+        }
+
+        .sun::after {
+            content: '';
+            position: absolute;
+            top: .1em;
+            left: 0;
+            will-change: transform;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: .1em;
+            height: .1em;
+            border-radius: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-box-shadow: 0 0 0.1em 0 rgba(255, 255, 255, 0.3) inset, -0.1em -0.1em 0 0.2em rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0.1em 0 rgba(255, 255, 255, 0.3) inset, -0.1em -0.1em 0 0.2em rgba(255, 255, 255, 0.1);
+            -webkit-animation: flare 12000ms infinite alternate linear;
+            animation: flare 12000ms infinite alternate linear;
+        }
+
+        @-webkit-keyframes flare {
+            to {
+                -webkit-transform: translate(-0.3em, 0.3em);
+                transform: translate(-0.3em, 0.3em);
+                opacity: .4;
+                font-size: .2em;
+            }
+        }
+
+        @keyframes flare {
+            to {
+                -webkit-transform: translate(-0.3em, 0.3em);
+                transform: translate(-0.3em, 0.3em);
+                opacity: .4;
+                font-size: .2em;
             }
         }
     </style>
